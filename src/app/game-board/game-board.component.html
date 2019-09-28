@@ -1,0 +1,31 @@
+<div class="players-container">
+    <label [ngClass]="{'highlighted': gameState.currentPlayer == player1}">Player 1:</label>
+    <input type="text" [(ngModel)]="player1.name" />
+    
+    <label [ngClass]="{'highlighted': gameState.currentPlayer == player2}">Player 2:</label>
+    <input type="text" [(ngModel)]="player2.name" />
+</div>
+
+<div class="gameboard">
+    <div class="row" *ngFor="let row of board; let rowindex = index">
+        <div class="space" *ngFor="let space of row; let spaceindex = index" (click)="updateBoard(gameState.currentPlayer, rowindex, spaceindex)">
+            <span [ngClass]="player1.symbol">{{player1.value == space ? player1.symbol : null}}</span>
+            <span [ngClass]="player2.symbol">{{player2.value == space ? player2.symbol : null}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="blns" *ngIf="gameState.over">
+    <div class="container">
+        <div class="balloon">
+            <div><span>☺</span></div>
+            <div><span>Y</span></div>
+            <div><span>A</span></div>
+            <div><span>Y</span></div>
+            <div><span>!</span></div>
+            <div><span>☺</span></div>
+        </div>
+        <h1>{{gameState.winner.name}} Won!</h1>
+        <button (click)="startover()">Play again</button>
+    </div>
+</div>
